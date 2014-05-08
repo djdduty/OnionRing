@@ -4,8 +4,11 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <System/OS/PlatformIncludes.h>
-#include <Utils/BcString.h>
+#include <System/PlatformIncludes.h>
+#include <string>
+#include <string.h>
+#include <sstream>
+#include <iostream>
 
 
 namespace BearClaw {

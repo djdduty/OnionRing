@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <Utils/ShaderProgram.h>
 #include <assert.h>
-#include <Utils/BcString.h>
 
 namespace BearClaw {
 
@@ -470,7 +469,7 @@ bool ShaderProgram::isProgramLinked() {
 std::string ShaderProgram::getAllInfoLogs() {
 
 	std::string s;
-    BcString EndStr;
+    std::string EndStr;
 
 	for (int i = 0; i < ShaderProgram::COUNT_SHADER_TYPE; ++i)
     {
@@ -478,18 +477,23 @@ std::string ShaderProgram::getAllInfoLogs() {
         {
 			getShaderInfoLog((ShaderProgram::ShaderType)i);
             if(pResult.size() <= 0) continue;
-            string ShdrTyp = ShaderProgram::spStringShaderTypes[i];
-            EndStr.Clear();
-            for(u8 i = 0;i < ShdrTyp.size();i++) EndStr += '-';
-            s = Format("------%s Log------\n%s------%s----------\n",ShdrTyp.c_str(),pResult.c_str(),EndStr.Ptr()).Ptr();
+            std::string ShdrTyp = ShaderProgram::spStringShaderTypes[i];
+            EndStr = "";
+            for(int i = 0;i < ShdrTyp.size();i++) EndStr += '-';
+            std::ostringstream ss;
+            ss << "------" << ShdrTyp.c_str() << " Log------\n" << pResult.c_str() << "------" << EndStr.c_str() << "----------\n";
+            s = ss.str();
         }
 	}
 
 	if (pProgram) {
 		getProgramInfoLog();
 		s += pResult;
-        if(s.size() > 0)
-            s += Format("------%s----------\n",EndStr.Ptr()).Ptr();
+        if(s.size() > 0) {
+            std::ostringstream ss2;
+            ss2 << "------" << EndStr.c_str() << "----------\n";
+            s += ss2.str();
+        }
 	}
 
 	pResult = s;
