@@ -35,7 +35,7 @@ public:
     }
 
     Mat4(f32 I) {if(I = 1.0f) ClearToIdentity();}
-	Mat4(Vec3 p) { ClearToIdentity(); Translate(p); }
+    Mat4(Vec3 p) { ClearToIdentity(); Translate(p); }
 
     inline void ClearToIdentity()
     {

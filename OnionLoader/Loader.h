@@ -11,20 +11,20 @@ namespace OnionRuntime {
 class OnionLoader
 {
 public:
-	bool KeepRunning;
+    bool KeepRunning;
 
 private:
-	lua_State* m_Lua;
-	
+    lua_State* m_Lua;
+
 protected:
 
 public:
-	OnionLoader(lua_State* L);
-	~OnionLoader();
-	void Load();
-	void Draw();
-	void Update(double DeltaTime);
-	void UnLoad();
+    OnionLoader(lua_State* L);
+    ~OnionLoader();
+    void Load();
+    void Draw();
+    void Update(double DeltaTime);
+    void UnLoad();
 };
 }
 

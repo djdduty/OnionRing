@@ -36,9 +36,9 @@ public:
         return Ret;
     }
 
-	f32 LengthSquared() {
-		return x * x + y * y + z * z;
-	}
+    f32 LengthSquared() {
+        return x * x + y * y + z * z;
+    }
 
     Vec3& Normalize()
     {
@@ -84,12 +84,12 @@ inline Vec3 operator*(const Vec3& l, f32 f)
 
 inline bool operator>(const Vec3& l, const Vec3& r)
 {
-	return (l.x > r.x) && (l.y > r.y) && (l.z > r.z);
+    return (l.x > r.x) && (l.y > r.y) && (l.z > r.z);
 }
 
 inline bool operator<(const Vec3& l, const Vec3& r)
 {
-	return (l.x < r.x) && (l.y < r.y) && (l.z < r.z);
+    return (l.x < r.x) && (l.y < r.y) && (l.z < r.z);
 }
 }
 
