@@ -14,12 +14,12 @@ end
 
 function onion.update(deltatime)
 	total_time = total_time + deltatime
-    frame_count = frame_count + 1
-    print "update!"
+	frame_count = frame_count + 1
+	print "update!"
 
-    if frame_count >= 10 then
-        onion.quit()
-    end
+	if frame_count >= 10 then
+		onion.quit()
+	end
 end
 
 function onion.unload()
