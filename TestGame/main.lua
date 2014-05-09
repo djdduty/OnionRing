@@ -1,29 +1,28 @@
-print("Hello from Lua!")
-require("test")
+print("Hello from Lua Global!")
 
-total_time = 0
-frame_count = 0
+frameCount = 0
+frameTimer = 0
 
 function onion.load()
     print("Hello from onion load!");
 end
 
 function onion.draw()
-    print("draw!");
+    --print("draw!")
 end
 
 function onion.update(deltatime)
-    total_time = total_time + deltatime
-    frame_count = frame_count + 1
-    print "update!"
+    frameTimer = frameTimer + deltatime
+    frameCount = frameCount + 1
+    -- print ("update... " .. frameTimer)
 
-    if frame_count >= 10 then
-        onion.quit()
+    if frameTimer >= 1000 then
+        print ("Fps: " .. frameCount)
+        frameCount = 0
+        frameTimer = 0
     end
 end
 
 function onion.unload()
-    print("Done");
-    print ("Total time:  " .. total_time .. " ms")
-    print ("Frame count: " .. frame_count)
+    print("Done")
 end
