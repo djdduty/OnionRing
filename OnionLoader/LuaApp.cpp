@@ -1,4 +1,5 @@
 #include <LuaApp.h>
+#include <System/Environment.h>
 
 namespace OnionRuntime {
 LuaApp::LuaApp(WindowInitializer Init, OnionLoader* Loader) {
@@ -16,12 +17,13 @@ void LuaApp::Start() {
 
     double DeltaTime = 0;
     double OldTime = m_Window->GetTimeInMS();
+    GameEnvironment->Init(m_Window);
 
-    while(!m_Window->GetCloseRequested() && m_Loader->KeepRunning) {
+    while(!m_Window->GetCloseRequested()) {
         DeltaTime = m_Window->GetTimeInMS() - OldTime;
         OldTime = m_Window->GetTimeInMS();
 
-        m_Window->PollEvents();
+        GameEnvironment->Update(DeltaTime);
 
         m_Loader->Update(DeltaTime);
         m_Loader->Draw();

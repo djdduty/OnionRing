@@ -61,7 +61,8 @@ public:
     }
 
     bool GetCloseRequested() {
-        return glfwWindowShouldClose(m_Window);
+        if(glfwWindowShouldClose(m_Window))
+            return true;
         return m_CloseRequested;
     }
 

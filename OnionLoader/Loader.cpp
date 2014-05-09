@@ -1,9 +1,13 @@
 #include <Loader.h>
 #include <iostream>
+#include <System/Environment.h>
 
+using namespace OnionRing;
 namespace OnionRuntime {
 OnionLoader* LoadInstance;
-static int Quit(lua_State* L) {LoadInstance->KeepRunning = false;}
+
+//Lua function bindings
+static int Quit(lua_State* L) {GameWindow->SetCloseRequested(true);}
 
 OnionLoader::OnionLoader(lua_State* L) {
     m_Lua = L;
