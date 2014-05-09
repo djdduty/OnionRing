@@ -12,9 +12,6 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 
 set(BUILD_STATIC TRUE CACHE BOOL "TRUE to build static libraries, FALSE to build shared libraries (preferred)")
 
-set(GLFWDIR "" CACHE PATH "Path to glfw dir")
-set(GLM_ROOT_DIR "" CACHE PATH "Path to glm dir")
-set(GLEWDIR "" CACHE PATH "Path to glew dir")
 set(GLDIR "" CACHE PATH "Path to openGL dir")
 
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake-extras/")

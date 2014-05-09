@@ -1,24 +1,23 @@
 #ifndef QUAT_H
 #define QUAT_H
 
-#include <System/BcTypes.h>
 #include <Utils/Math/Mat4.h>
 #include <math.h>
 
-namespace BearClaw {
+namespace OnionRing {
 class Quat
 {
 public:
-    f32 x, y, z, w;
+    float x, y, z, w;
     Quat() {x = 0; y = 0; z = 0; w = 1;}
-    Quat(f32 _x, f32 _y, f32 _z, f32 _w) {x = _x;
+    Quat(float _x, float _y, float _z, float _w) {x = _x;
                                           y = _y;
                                           z = _z;
                                           w = _w;}
 
     void Normalize()
     {
-        f32 Length = sqrtf(x * x + y * y + z * z + w * w);
+        float Length = sqrtf(x * x + y * y + z * z + w * w);
 
         x /= Length;
         y /= Length;

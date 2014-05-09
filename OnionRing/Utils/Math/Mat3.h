@@ -1,14 +1,13 @@
 #ifndef MATTHREE_H
 #define MATTHREE_H
 
-#include <System/BcTypes.h>
 #include <Utils/Math.h>
 
-namespace BearClaw {
+namespace OnionRing {
 class Mat3
 {
 public:
-    f32 m[3][3];
+    float m[3][3];
 
     Mat3(){Zero();}
 

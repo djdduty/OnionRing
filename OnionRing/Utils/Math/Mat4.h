@@ -2,39 +2,38 @@
 #define MATRIX_FOUR_H
 
 #include <iostream>
-#include <System/BcTypes.h>
 #include <Utils/Math/Vec3.h>
 
-namespace BearClaw {
+namespace OnionRing {
 class Mat4;
 Mat4 ScaleTransform(Vec3 Scale);
 Mat4 RotateTransform(Vec3 Rot);
 Mat4 TranslationTransform(Vec3 Trans);
 Mat4 LookAt(Vec3 Position, Vec3 Target, Vec3 Up);
-Mat4 PerspectiveProjection(f32 Fov, f32 Width, f32 Height, f32 Near, f32 Far);
-Mat4 OrthoProjection(f32 Left, f32 Right, f32 Top, f32 Bottom, f32 Near, f32 Far);
+Mat4 PerspectiveProjection(float Fov, float Width, float Height, float Near, float Far);
+Mat4 OrthoProjection(float Left, float Right, float Top, float Bottom, float Near, float Far);
 Mat4 Transpose(Mat4 In);
 Mat4 Inverse(Mat4 In);
 
 class Mat4
 {
 public:
-    f32 m[4][4];
+    float m[4][4];
 
     Mat4(){ClearToIdentity();}
 
     Mat4(Mat4* Mat)
     {
-        for(i32 i = 0; i < 4; i++)
+        for(int i = 0; i < 4; i++)
         {
-            for(i32 j = 0; i < 4; i++)
+            for(int j = 0; i < 4; i++)
             {
                 m[i][j] = Mat->m[i][j];
             }
         }
     }
 
-    Mat4(f32 I) {if(I = 1.0f) ClearToIdentity();}
+    Mat4(float I) {if(I = 1.0f) ClearToIdentity();}
     Mat4(Vec3 p) { ClearToIdentity(); Translate(p); }
 
     inline void ClearToIdentity()
@@ -49,9 +48,9 @@ public:
     {
         Mat4 Ret;
 
-        for(i32 i = 0; i < 4; i++)
+        for(int i = 0; i < 4; i++)
         {
-            for(i32 j = 0; j < 4; j++)
+            for(int j = 0; j < 4; j++)
             {
                 Ret.m[i][j] =   m[i][0] * Right.m[0][j] +
                                 m[i][1] * Right.m[1][j] +

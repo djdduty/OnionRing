@@ -1,34 +1,34 @@
 #ifndef VECTOR_THREE_H
 #define VECTOR_THREE_H
 
-#include <System/BcTypes.h>
 #include <math.h>
 #include <Utils/Math/Functions.h>
+#include <stdio.h>
 
-namespace BearClaw {
+namespace OnionRing {
 class Mat4;
 
 class Vec3
 {
 public:
-    f32   x,y,z;
+    float   x,y,z;
 
     Vec3()                          {x = 0.0f; y = 0.0f; z = 0.0f;              }
-    Vec3(f32 n)                     {x = n; y = n; z = n;                       }
-    Vec3(f32 x, f32 y, f32 z)       {this->x = x; this->y = y; this->z = z;     }
+    Vec3(float n)                     {x = n; y = n; z = n;                       }
+    Vec3(float x, float y, float z)       {this->x = x; this->y = y; this->z = z;     }
 
     Vec3& operator+=(const Vec3 &r) {x+=r.x, y+=r.y; z+=r.z; return* this;      }
     Vec3& operator-=(const Vec3 &r) {x-=r.x, y-=r.y; z-=r.z; return* this;      }
-    Vec3& operator*=(f32 f)         {x*=f; y*=f; z*=f; return* this;            }
+    Vec3& operator*=(float f)       {x*=f; y*=f; z*=f; return* this;            }
 
     void Print() const              {printf("(%.02f, %.02f, %.02f\n", x, y, z);   }
 
     Vec3 Cross(const Vec3 &v) const
     {
         Vec3 Ret = Vec3();
-        const f32 x1 = y * v.z - z * v.y;
-        const f32 y1 = z * v.x - x * v.z;
-        const f32 z1 = x * v.y - y * v.x;
+        const float x1 = y * v.z - z * v.y;
+        const float y1 = z * v.x - x * v.z;
+        const float z1 = x * v.y - y * v.x;
         Ret.x = x1;
         Ret.y = y1;
         Ret.z = z1;
@@ -36,13 +36,13 @@ public:
         return Ret;
     }
 
-    f32 LengthSquared() {
+    float LengthSquared() {
         return x * x + y * y + z * z;
     }
 
     Vec3& Normalize()
     {
-        const f32 Length = sqrtf(x * x + y * y + z * z);
+        const float Length = sqrtf(x * x + y * y + z * z);
 
         x /= Length;
         y /= Length;
@@ -73,7 +73,7 @@ inline Vec3 operator-(const Vec3& l, const Vec3& r)
     return Ret;
 }
 
-inline Vec3 operator*(const Vec3& l, f32 f)
+inline Vec3 operator*(const Vec3& l, float f)
 {
     Vec3 Ret(l.x * f,
              l.y * f,
