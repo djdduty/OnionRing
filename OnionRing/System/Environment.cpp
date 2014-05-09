@@ -1,17 +1,18 @@
 #include <System/Environment.h>
 
 namespace OnionRing {
-Environment::Environment() {
+Environment::Environment() : m_InputManager(new InputManager()) {
     m_ElapsedTime = 0.0;
 }
 
 void Environment::Init(Window* Win) {
-    m_Log = fopen("DebugOutput.txt", "w");
+    //m_Log = fopen("DebugOutput.txt", "w");
     m_Window = Win;
     m_WindowHeight = m_Window->GetHeight();
     m_WindowWidth = m_Window->GetWidth();
 
     //todo Renderer, Resource managers, etc
+    m_InputManager->Init();
 }
 
 void Environment::Update(double DeltaTime) {
@@ -24,24 +25,7 @@ void Environment::Update(double DeltaTime) {
         glViewport(0,0,m_WindowWidth, m_WindowHeight);
     }
 
-    m_Window->PollEvents();
+    m_InputManager->PollEvents();
     //m_InputManager->PollEvents();
-}
-
-int Environment::Log(const char* Text, ...)
-{
-    va_list List;
-    va_start(List, Text);
-    int Size = strlen(Text) + 512;
-    char *Formatted = AllocStr(Size);
-
-    vsnprintf(Formatted, Size, Text, List);
-    va_end(List);
-
-    int Ret = fprintf(m_Log, "%s", Formatted);
-    printf("%s", Formatted);
-
-    free(Formatted);
-    return Ret;
 }
 }

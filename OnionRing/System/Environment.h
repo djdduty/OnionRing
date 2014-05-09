@@ -2,21 +2,11 @@
 #define ENVIRONMENT_H
 
 #include <System/Window.h>
-#include <sys/stat.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <iostream>
-
-#define AllocArray(Type,Size) (Type *)malloc(Size * sizeof(Type))
-#define AllocStr(Sz) AllocArray(char,Sz)
-
-#define OR_LOG          Environment::GetEnvironment()->Log
-#define OR_ERROR(...)   {Environment::GetEnvironment()->Log(__VA_ARGS__); abort(); }
+#include <System/InputManager.h>
 
 #define GameEnvironment Environment::GetEnvironment()
 #define GameWindow      Environment::GetEnvironment()->GetWindow()
+#define InputMgr        Environment::GetEnvironment()->GetInputManager()
 
 #define WindowWidth     Environment::GetEnvironment()->GetWindowWidth()
 #define WindowHeight    Environment::GetEnvironment()->GetWindowHeight()
@@ -31,6 +21,8 @@ private:
 
 protected:
     Window* m_Window;
+    InputManager* m_InputManager;
+
     FILE*   m_Log;
 
     float   m_ElapsedTime;
@@ -50,9 +42,8 @@ public:
     virtual void Init(Window* Win);
     virtual void Update(double DeltaTime);
 
-    int  Log(const char* Text, ...);
-
     Window*             GetWindow()         const {return m_Window;         }
+    InputManager*       GetInputManager()   const {return m_InputManager;   }
 
     int                 GetWindowWidth()    {return m_WindowWidth;          }
     int                 GetWindowHeight()   {return m_WindowHeight;         }

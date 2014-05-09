@@ -18,7 +18,8 @@ void LuaApp::Start() {
     double DeltaTime = 0;
     double OldTime = m_Window->GetTimeInMS();
     GameEnvironment->Init(m_Window);
-
+    m_Loader->Init();
+    m_Loader->Load();
     while(!m_Window->GetCloseRequested()) {
         DeltaTime = m_Window->GetTimeInMS() - OldTime;
         OldTime = m_Window->GetTimeInMS();
@@ -30,7 +31,7 @@ void LuaApp::Start() {
 
         m_Window->SwapBuffers();
     }
-
+    m_Loader->UnLoad();
     m_Window->Destroy();
 }
 }
