@@ -4,7 +4,9 @@
 #include <System/PlatformIncludes.h>
 #include <Utils/Math.h>
 #include <GLFW/glfw3.h>
+#include <string>
 
+using namespace std;
 namespace OnionRing {
 struct WindowInitializer
 {
@@ -70,6 +72,13 @@ public:
         return m_Window;
     }
 
+    void SetWindowSize(Vec2 Size) {
+        glfwSetWindowSize(m_Window, Size.x, Size.y);
+    }
+
+    void SetWindowTitle(const char* title) {
+        glfwSetWindowTitle(m_Window, title);
+    }
 };
 }
 #endif
