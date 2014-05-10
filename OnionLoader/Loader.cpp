@@ -9,6 +9,16 @@ namespace OnionRuntime {
 
 //misc
 static int Quit(lua_State* L) {GameWindow->SetCloseRequested(true); return 1;}
+static int SetWindowSize(lua_State* L) {
+    Vec2 Size = Vec2(luaL_checknumber(L,1),luaL_checknumber(L,2));
+    GameWindow->SetWindowSize(Size);
+    return 1;
+}
+
+static int SetWindowTitle(lua_State* L) {
+    GameWindow->SetWindowTitle(luaL_checkstring(L, 1));
+    return 1;
+}
 
 OnionLoader::OnionLoader(lua_State* L, string FileName) {
     m_Lua = L;
@@ -22,7 +32,6 @@ OnionLoader::~OnionLoader() {
 void OnionLoader::Init() {
     //Lua
     if (luaL_loadfile(m_Lua, m_FileName.c_str())) {
-        std::cerr << "Something went wrong loading the chunk (syntax error?)\n";
         std::cerr << lua_tostring(m_Lua, -1) << std::endl;
         lua_pop(m_Lua,1);
     }
@@ -30,11 +39,16 @@ void OnionLoader::Init() {
     lua_newtable(m_Lua);
         lua_pushcfunction(m_Lua, Quit);
         lua_setfield(m_Lua, -2, "quit");
+        lua_newtable(m_Lua);
+            lua_pushcfunction(m_Lua, SetWindowSize);
+            lua_setfield(m_Lua, -2, "setsize");
+            lua_pushcfunction(m_Lua, SetWindowTitle);
+            lua_setfield(m_Lua, -2, "settitle");
+        lua_setfield(m_Lua, -2, "window");
         InputMgr->BindLua(m_Lua);
     lua_setglobal(m_Lua, "onion");
 
     if (lua_pcall(m_Lua,0, LUA_MULTRET, 0)) {
-        std::cerr << "Something went wrong during execution\n";
         std::cerr << lua_tostring(m_Lua, -1) << std::endl;
         lua_pop(m_Lua,1);
     }
