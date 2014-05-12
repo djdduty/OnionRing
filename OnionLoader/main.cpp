@@ -51,8 +51,8 @@ int main(int argc, char* argv[]) {
             printf("OnionEngine - Version 0.1\n");
             printf("OnionLoader - Version 0.2\n");
         }
-        else {
-            OnionLoader* Loader = new OnionLoader(L, argv[i]);
+    {
+            OnionLoader* Loader = new OnionLoader(L, argv[1]);//argv[1]
             lua_State* LConf = luaL_newstate();
             luaL_openlibs(LConf);
             bool ConfGood = true;
@@ -103,4 +103,10 @@ int main(int argc, char* argv[]) {
         }
     }
     printf("Usage is \"OnionLoader FileName\", where FileName is the main lua file or zip archive. Use -h for more help.\n");
+
+    for(int x = 0; x < WinInit.Width; x++) {
+        for(int y = 0; y < WinInit.Height; y++) {
+
+        }
+    }
 }

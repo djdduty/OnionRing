@@ -1,3 +1,4 @@
+#ifdef USING_GL
 #ifndef WINDOW_H
 #define WINDOW_H
 
@@ -81,4 +82,5 @@ public:
     }
 };
 }
+#endif
 #endif

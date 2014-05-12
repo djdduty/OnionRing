@@ -1,3 +1,4 @@
+#ifdef USING_GL
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -843,3 +844,4 @@ int ShaderProgram::typeSize(int type) {
 }
 
 }
+#endif

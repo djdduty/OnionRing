@@ -1,7 +1,7 @@
 #ifndef ENVIRONMENT_H
 #define ENVIRONMENT_H
 
-#include <System/Window.h>
+#include <System/SDLWindow.h>
 #include <System/InputManager.h>
 
 #define GameEnvironment Environment::GetEnvironment()
@@ -20,7 +20,7 @@ private:
     Environment();
 
 protected:
-    Window* m_Window;
+    SDLWindow* m_Window;
     InputManager* m_InputManager;
 
     FILE*   m_Log;
@@ -39,10 +39,11 @@ public:
         return Env;
     }
 
-    virtual void Init(Window* Win);
+    virtual void Init(SDLWindow* Win);
     virtual void Update(double DeltaTime);
+    virtual void Render();
 
-    Window*             GetWindow()         const {return m_Window;         }
+    SDLWindow*          GetWindow()         const {return m_Window;         }
     InputManager*       GetInputManager()   const {return m_InputManager;   }
 
     int                 GetWindowWidth()    {return m_WindowWidth;          }

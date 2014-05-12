@@ -95,9 +95,9 @@ void OnionLoader::UnLoad() {
 
 void OnionLoader::KeyCallback(int b, int a) {
     lua_getglobal(m_Lua, "onion");
-    if(a == GLFW_PRESS)
+    if(a == SDL_KEYDOWN)
         lua_getfield(m_Lua, -1, "keydown");
-    if(a == GLFW_RELEASE)
+    if(a == SDL_KEYUP)
         lua_getfield(m_Lua, -1, "keyup");
     lua_pushnumber(m_Lua, b);
     lua_pcall(m_Lua, 1, 0, 0);
@@ -115,9 +115,9 @@ void OnionLoader::MouseMoveCallback(double x, double y) {
 
 void OnionLoader::MouseButtonCallback(int b, int a) {
     lua_getglobal(m_Lua, "onion");
-    if(a == GLFW_PRESS)
+    if(a == SDL_MOUSEBUTTONDOWN)
         lua_getfield(m_Lua, -1, "mousedown");
-    if(a == GLFW_RELEASE)
+    if(a == SDL_MOUSEBUTTONUP)
         lua_getfield(m_Lua, -1, "mouseup");
     lua_pushnumber(m_Lua, b);
     lua_pcall(m_Lua, 1, 0, 0);

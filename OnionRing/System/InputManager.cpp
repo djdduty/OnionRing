@@ -6,7 +6,7 @@ namespace OnionRing {
 static int IsKeyDown(lua_State* L) {
     bool ret = false;
     int arg = luaL_checknumber(L,1);
-    if(InputMgr->GetKey(arg) == GLFW_PRESS)
+    if(InputMgr->GetKey(arg) == SDL_KEYDOWN)
         ret = true;
     lua_pushboolean(L, ret);
     return 1;
@@ -15,7 +15,7 @@ static int IsKeyDown(lua_State* L) {
 static int IsMouseButtonDown(lua_State* L) {
     bool ret = false;
     int arg = luaL_checknumber(L,1);
-    if(InputMgr->GetMouseButton(arg) == GLFW_PRESS)
+    if(InputMgr->GetMouseButton(arg) == SDL_MOUSEBUTTONDOWN)
         ret = true;
     lua_pushboolean(L, ret);
     return 1;
@@ -26,30 +26,18 @@ static int GetMY(lua_State* L) {lua_pushnumber(L, InputMgr->GetMouseY());return 
 static int HideMouse(lua_State* L) {InputMgr->HideCursor(true);return 1;}
 static int ShowMouse(lua_State* L) {InputMgr->HideCursor(false);return 1;}
 
-//--------
-
-void KeyCallback(GLFWwindow* Window, int key, int scancode, int action, int mods)
-{
-        InputMgr->OnKeyDown(key, action);
-}
-
-void MouseMoveCallback(GLFWwindow* Window, double x, double y)
-{
-    InputMgr->MousePosition = Vec2(x, y);
-    InputMgr->OnMouseMove(x,y);
-}
-
-void MouseButtonCallback(GLFWwindow* Window, int Button, int Action, int mods)
-{
-    InputMgr->OnMouseButton(Button, Action);
-}
-
+//-------
 void InputManager::Init() {
     m_GameWindow = GameWindow;
     m_bShowCursor = true;
-    glfwSetKeyCallback(m_GameWindow->GetWindow(), KeyCallback);
-    glfwSetCursorPosCallback(m_GameWindow->GetWindow(), MouseMoveCallback);
-    glfwSetMouseButtonCallback(m_GameWindow->GetWindow(), MouseButtonCallback);
+    using std::placeholders::_1;
+    using std::placeholders::_2;
+    KeyFunc KeyFunction = std::bind(&InputManager::OnKeyDown, this, _1, _2);
+    MouseMoveFunc MMFunc = std::bind(&InputManager::OnMouseMove, this, _1, _2);
+    MouseButtonFunc MBFunc = std::bind(&InputManager::OnMouseButton, this, _1, _2);
+    m_GameWindow->SetKeyFunction(KeyFunction);
+    m_GameWindow->SetMouseMoveFunction(MMFunc);
+    m_GameWindow->SetMouseButtonFunction(MBFunc);
 }
 
 void InputManager::BindLua(lua_State* L) {
@@ -105,7 +93,7 @@ void InputManager::OnKeyDown(char Key, int Action)
     }
 }
 
-void InputManager::OnMouseMove(double x, double y)
+void InputManager::OnMouseMove(int x, int y)
 {
     MousePosition.x = x; MousePosition.y = y;
     for (int n = 0; n < m_MouseMoveFunctions.size(); n++)

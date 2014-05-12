@@ -2,9 +2,9 @@
 #define PLATFORM_INCLUDES_H
 
 #define GLEW_STATIC
-
-#include <GL/glew.h>
-
+#ifdef USING_GL
+    #include <GL/glew.h>
+#endif
 #include <memory>
 
 #include <memory>

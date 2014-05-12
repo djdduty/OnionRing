@@ -20,10 +20,8 @@ set(GLFWDIR "${PROJECT_SOURCE_DIR}/dependencies/glfw")
 set(GLEWDIR "${PROJECT_SOURCE_DIR}/dependencies/glew")
 
 ADD_SUBDIRECTORY(dependencies)
-find_package(GL REQUIRED)
-find_package(X11 REQUIRED)
 
-include_directories(SYSTEM ${PROJECT_SOURCE_DIR}/OnionRing/ ${PROJECT_SOURCE_DIR}/dependencies/glfw/include/ ${gl_INCLUDE_DIRS} ${PROJECT_SOURCE_DIR}/dependencies/glew/include/ ${PROJECT_SOURCE_DIR}/dependencies/lua/include/ ${PROJECT_SOURCE_DIR}/dependencies/z/ ${PROJECT_SOURCE_DIR}/dependencies/soil/)
+include_directories(SYSTEM ${PROJECT_SOURCE_DIR}/OnionRing/ ${PROJECT_SOURCE_DIR}/dependencies/SDL2/include/ ${PROJECT_SOURCE_DIR}/dependencies/lua/include/ ${PROJECT_SOURCE_DIR}/dependencies/z/)
 
 ADD_DEFINITIONS(
     -std=c++11

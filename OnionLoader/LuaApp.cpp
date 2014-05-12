@@ -3,7 +3,7 @@
 
 namespace OnionRuntime {
 LuaApp::LuaApp(WindowInitializer Init, OnionLoader* Loader) {
-    m_Window = new Window(Init);
+    m_Window = new SDLWindow(Init);
     m_Loader = Loader;
 }
 
@@ -13,7 +13,6 @@ LuaApp::~LuaApp() {
 
 void LuaApp::Start() {
     m_Window->Create();
-    m_Window->MakeCurrent();
 
     double DeltaTime = 0;
     double OldTime = m_Window->GetTimeInMS();
@@ -29,7 +28,7 @@ void LuaApp::Start() {
         m_Loader->Update(DeltaTime);
         m_Loader->Draw();
 
-        m_Window->SwapBuffers();
+        GameEnvironment->Render();
     }
     m_Loader->UnLoad();
     m_Window->Destroy();

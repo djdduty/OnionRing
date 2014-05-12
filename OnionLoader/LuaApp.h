@@ -1,7 +1,7 @@
 #ifndef LUA_APP_H
 #define LUA_APP_H
 
-#include <System/Window.h>
+#include <System/SDLWindow.h>
 #include <Loader.h>
 
 using namespace OnionRing;
@@ -9,7 +9,7 @@ namespace OnionRuntime {
 class LuaApp
 {
 private:
-    Window* m_Window;
+    SDLWindow* m_Window;
     OnionLoader* m_Loader;
 
 protected:

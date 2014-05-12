@@ -1,11 +1,15 @@
 #include <System/Environment.h>
+#include <Rendering/PixelBuffer.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 namespace OnionRing {
 Environment::Environment() : m_InputManager(new InputManager()) {
     m_ElapsedTime = 0.0;
 }
 
-void Environment::Init(Window* Win) {
+void Environment::Init(SDLWindow* Win) {
     //m_Log = fopen("DebugOutput.txt", "w");
     m_Window = Win;
     m_WindowHeight = m_Window->GetHeight();
@@ -22,10 +26,25 @@ void Environment::Update(double DeltaTime) {
     {
         m_WindowWidth = m_Window->GetWidth();
         m_WindowHeight = m_Window->GetHeight();
-        glViewport(0,0,m_WindowWidth, m_WindowHeight);
     }
 
     m_InputManager->PollEvents();
-    //m_InputManager->PollEvents();
+}
+
+void Environment::Render() {
+    PixelBuffer_t buffer;
+    PixelBuffer_Create(&buffer, 2, m_Window->GetWidth(), m_Window->GetHeight());
+    memset( buffer.addr, 0x1, buffer.w * buffer.h * buffer.bpp );
+
+    for(int y = 0; y < m_Window->GetHeight(); y++) {
+        for(int x = 0; x < m_Window->GetWidth(); x++) {
+
+        }
+    }
+
+    //SDL_UpdateTexture(m_Window->GetTexture(), NULL, buffer.addr, buffer.w * buffer.bpp );
+    SDL_RenderClear(m_Window->GetRenderer());
+    //SDL_RenderCopy(m_Window->GetRenderer(), m_Window->GetTexture(), NULL, NULL);
+    SDL_RenderPresent(m_Window->GetRenderer());
 }
 }

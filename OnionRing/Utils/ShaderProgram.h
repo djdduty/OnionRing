@@ -1,3 +1,4 @@
+#ifdef USING_GL
 #ifndef SHADERPROGRAM_H
 #define SHADERPROGRAM_H
 
@@ -115,4 +116,5 @@ protected:
 };
 }
 
+#endif
 #endif

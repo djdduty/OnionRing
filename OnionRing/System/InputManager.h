@@ -2,7 +2,7 @@
 #define INPUT_MANAGER_H
 
 #include <System/PlatformIncludes.h>
-#include <System/Window.h>
+#include <System/SDLWindow.h>
 #include <Utils/Math.h>
 #include <vector>
 #include <map>
@@ -14,9 +14,6 @@ extern "C" {
 }
 
 namespace OnionRing {
-typedef std::function<void(int, int)> KeyFunc;
-typedef std::function<void(double, double)> MouseMoveFunc;
-typedef std::function<void(int, int)> MouseButtonFunc;
 typedef std::vector<KeyFunc> KeyFuncList;
 typedef std::vector<MouseMoveFunc> MouseMoveFuncList;
 typedef std::vector<MouseButtonFunc> MouseButtonFuncList;
@@ -28,7 +25,7 @@ private:
     MouseMoveFuncList       m_MouseMoveFunctions;
     MouseButtonFuncList     m_MouseButtonFunctions;
 
-    Window*                 m_GameWindow;
+    SDLWindow*                 m_GameWindow;
     bool                    m_bShowCursor;
 protected:
 
@@ -40,12 +37,12 @@ public:
 
     int GetKey(int i) const
     {
-        return glfwGetKey(m_GameWindow->GetWindow(), i);
+        return 0;//TODO: New version, return glfwGetKey(m_GameWindow->GetWindow(), i);
     }
 
     int GetMouseButton(int i) const
     {
-        return glfwGetMouseButton(m_GameWindow->GetWindow(), i);
+        return 0;//TODO: New version, return glfwGetMouseButton(m_GameWindow->GetWindow(), i);
     }
 
     const int GetMouseX() const
@@ -64,14 +61,14 @@ public:
     void PollEvents() {m_GameWindow->PollEvents();}
     void SetMousePosition(const Vec2& Pos) {
         if(Pos.x != MousePosition.x && Pos.y != MousePosition.y)
-            glfwSetCursorPos(m_GameWindow->GetWindow(), Pos.x, Pos.y);
+            SDL_WarpMouseInWindow(m_GameWindow->GetWindow(), Pos.x, Pos.y);
     }
 
     void HideCursor(bool Hide) {
         if(Hide)
-            glfwSetInputMode(m_GameWindow->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+            SDL_ShowCursor(0);
         else
-            glfwSetInputMode(m_GameWindow->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+            SDL_ShowCursor(1);
     }
 
     //Functions
@@ -84,7 +81,7 @@ public:
     void RemoveMouseButtconFunctions();
 
     //lower level calls, calls the cbs and funcs
-    void OnMouseMove(double x, double y);
+    void OnMouseMove(int x, int y);
     void OnKeyDown(char Key, int Action);
     void OnMouseButton(int Button, int Action);
 

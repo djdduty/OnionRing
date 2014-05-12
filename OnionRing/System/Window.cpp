@@ -1,3 +1,4 @@
+#ifdef USING_GL
 #include <System/Window.h>
 
 namespace OnionRing {
@@ -93,3 +94,4 @@ void Window::MakeCurrent()
     glfwMakeContextCurrent(m_Window);
 }
 }
+#endif
