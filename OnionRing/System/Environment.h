@@ -3,6 +3,8 @@
 
 #include <System/SDLWindow.h>
 #include <System/InputManager.h>
+#include <System/EngineTypes.h>
+#include <Rendering/PixelBuffer.h>
 
 #define GameEnvironment Environment::GetEnvironment()
 #define GameWindow      Environment::GetEnvironment()->GetWindow()
@@ -31,6 +33,8 @@ protected:
             m_WindowHeight;
 
 public:
+    PixelBuffer_t buffer;
+
     ~Environment();
 
     static Environment* GetEnvironment()

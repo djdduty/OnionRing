@@ -16,7 +16,7 @@ bool SDLWindow::Create() {
         m_Window = SDL_CreateWindow(m_Initializer.Title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_Initializer.Width, m_Initializer.Height, 0);
 
     m_Renderer = SDL_CreateRenderer(m_Window, -1, SDL_RENDERER_SOFTWARE);
-    m_Texture = SDL_CreateTexture(m_Renderer, SDL_PIXELFORMAT_RGB555, SDL_TEXTUREACCESS_STREAMING, m_Initializer.Width, m_Initializer.Height);
+    m_Texture = SDL_CreateTexture(m_Renderer, SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_STREAMING, m_Initializer.Width, m_Initializer.Height);
 
     if(m_Window == NULL)
     {
@@ -33,7 +33,7 @@ void SDLWindow::Destroy() {
 
 Vec2 SDLWindow::GetWindowSize() {
     int width, height;
-
+    SDL_GetWindowSize(m_Window, &width, &height);
     return Vec2(width, height);
 }
 

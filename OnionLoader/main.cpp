@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
             printf("OnionEngine - Version 0.1\n");
             printf("OnionLoader - Version 0.2\n");
         }
-    {
+        else{
             OnionLoader* Loader = new OnionLoader(L, argv[1]);//argv[1]
             lua_State* LConf = luaL_newstate();
             luaL_openlibs(LConf);
