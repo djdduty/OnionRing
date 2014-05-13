@@ -19,14 +19,10 @@ void OnionRenderer::Init() {
     m_Renderer = SDL_CreateRenderer(GameWindow->GetWindow(), -1, SDL_RENDERER_SOFTWARE);
     m_Texture = SDL_CreateTexture(m_Renderer, SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_STREAMING, GameWindow->GetWidth()*TexMultiplier, GameWindow->GetHeight()*TexMultiplier);
 
-    srand(13);
-    spheres.push_back(new Sphere(Vec3(0, -10004, -20), 10000, Vec3(0.2), 0, 0.0));
+    spheres.push_back(new Sphere(Vec3(0, -10004, -20), 10000, Vec3(0.0, 0.0, 0.5), 0, 0.0));
     spheres.push_back(new Sphere(Vec3(0, 0, -20), 4, Vec3(1.00, 0.32, 0.36), 1, 0.0));
-    spheres.push_back(new Sphere(Vec3(5, -1, -15), 2, Vec3(0.90, 0.76, 0.46), 1, 0.0));
+    spheres.push_back(new Sphere(Vec3(-5, -1, -15), 2, Vec3(0.90, 0.76, 0.46), 1, 0.0));
     spheres.push_back(new Sphere(Vec3(5, 0, -25), 3, Vec3(0.65, 0.77, 0.97), 1, 0.0));
-    spheres.push_back(new Sphere(Vec3(-5.5, 0, -15), 3, Vec3(0.90, 0.90, 0.90), 1, 0.0));
-    // light
-    spheres.push_back(new Sphere(Vec3(0, 20, -30), 3, Vec3(0,0,0), 0, 0, Vec3(3,3,3)));
 }
 
 void OnionRenderer::Render() {
