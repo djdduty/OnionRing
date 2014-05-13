@@ -4,11 +4,12 @@
 #include <System/SDLWindow.h>
 #include <System/InputManager.h>
 #include <System/EngineTypes.h>
-#include <Rendering/PixelBuffer.h>
+#include <Rendering/OnionRenderer.h>
 
 #define GameEnvironment Environment::GetEnvironment()
 #define GameWindow      Environment::GetEnvironment()->GetWindow()
 #define InputMgr        Environment::GetEnvironment()->GetInputManager()
+#define GameRenderer    Environment::GetEnvironment()->GetRenderer()
 
 #define WindowWidth     Environment::GetEnvironment()->GetWindowWidth()
 #define WindowHeight    Environment::GetEnvironment()->GetWindowHeight()
@@ -24,6 +25,7 @@ private:
 protected:
     SDLWindow* m_Window;
     InputManager* m_InputManager;
+    OnionRenderer* m_Renderer;
 
     FILE*   m_Log;
 
@@ -33,8 +35,6 @@ protected:
             m_WindowHeight;
 
 public:
-    PixelBuffer_t buffer;
-
     ~Environment();
 
     static Environment* GetEnvironment()
@@ -49,6 +49,7 @@ public:
 
     SDLWindow*          GetWindow()         const {return m_Window;         }
     InputManager*       GetInputManager()   const {return m_InputManager;   }
+    OnionRenderer*      GetRenderer()       const {return m_Renderer;       }
 
     int                 GetWindowWidth()    {return m_WindowWidth;          }
     int                 GetWindowHeight()   {return m_WindowHeight;         }

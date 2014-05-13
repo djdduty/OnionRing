@@ -36,8 +36,6 @@ private:
     bool                m_CloseRequested;
     WindowInitializer   m_Initializer;
     SDL_Window*         m_Window;
-    SDL_Renderer*       m_Renderer;
-    SDL_Texture*        m_Texture;
 
     KeyFunc             m_KeyFunction;
     MouseMoveFunc       m_MouseMoveFunction;
@@ -91,14 +89,6 @@ public:
 
     SDL_Window* GetWindow() {
         return m_Window;
-    }
-
-    SDL_Renderer* GetRenderer() {
-        return m_Renderer;
-    }
-
-    SDL_Texture* GetTexture() {
-        return m_Texture;
     }
 
     void SetWindowFullscreen(bool f) {

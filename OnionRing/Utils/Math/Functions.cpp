@@ -3,7 +3,7 @@
 #include <Utils/Math/Quat.h>
 #include <Utils/Math/Mat4.h>
 
-namespace BearClaw {
+namespace OnionRing {
 /*
  * Mat4
  */
@@ -23,9 +23,9 @@ Mat4 RotateTransform(Vec3 Rot)
 {
     Mat4 rx, ry, rz;
 
-    const f32 x = ToRadian(Rot.x);
-    const f32 y = ToRadian(Rot.y);
-    const f32 z = ToRadian(Rot.z);
+    const float x = ToRadian(Rot.x);
+    const float y = ToRadian(Rot.y);
+    const float z = ToRadian(Rot.z);
 
     rx.m[0][0] = 1.0f   ; rx.m[1][0] = 0.0f     ; rx.m[2][0] = 0.0f     ; rx.m[3][0] = 0.0f;
     rx.m[0][1] = 0.0f   ; rx.m[1][1] = cosf(x)  ; rx.m[2][1] = -sinf(x) ; rx.m[3][1] = 0.0f;
@@ -74,13 +74,13 @@ Mat4 LookAt(Vec3 Position, Vec3 Target, Vec3 Up)
     return Ret;
 }
 
-Mat4 PerspectiveProjection(f32 Fov, f32 Width, f32 Height, f32 zNear, f32 zFar)
+Mat4 PerspectiveProjection(float Fov, float Width, float Height, float zNear, float zFar)
 {
     Mat4 Ret = Mat4(1.0f);
 
-    const f32 ar         = Width / Height;
-    const f32 zRange     = zNear - zFar;
-    const f32 tanHalfFOV = tanf(ToRadian(Fov / 2.0f));
+    const float ar         = Width / Height;
+    const float zRange     = zNear - zFar;
+    const float tanHalfFOV = tanf(ToRadian(Fov / 2.0f));
 
     Ret.m[0][0] = (1.0f/tanHalfFOV) / ar; Ret.m[1][0] = 0.0f;            Ret.m[2][0] = 0.0f;                    Ret.m[3][0] = 0.0f;
     Ret.m[0][1] = 0.0f;                   Ret.m[1][1] = 1.0f/tanHalfFOV; Ret.m[2][1] = 0.0f;                    Ret.m[3][1] = 0.0f;
@@ -90,7 +90,7 @@ Mat4 PerspectiveProjection(f32 Fov, f32 Width, f32 Height, f32 zNear, f32 zFar)
     return Ret;
 }
 
-Mat4 OrthoProjection(f32 l, f32 r, f32 t, f32 b, f32 n, f32 f) {
+Mat4 OrthoProjection(float l, float r, float t, float b, float n, float f) {
 
     Mat4 Ret = Mat4();
     Ret.m[0][0] = 2 / (r - l);              Ret.m[1][0] = 0.0f;             Ret.m[2][0] = 0.0f;                 Ret.m[3][0] = -(r + l) / (r - l);
@@ -105,9 +105,9 @@ Mat4 Transpose(Mat4 In)
 {
     Mat4 Ret;
     Ret = Mat4();
-    for(i32 i = 0; i < 4; i++)
+    for(int i = 0; i < 4; i++)
     {
-        for(i32 j = 0; j < 4; j++)
+        for(int j = 0; j < 4; j++)
         {
             Ret.m[i][j] = In.m[j][i];
         }
@@ -118,7 +118,7 @@ Mat4 Transpose(Mat4 In)
 
 Mat4 Inverse(Mat4 In)
 {
-    f64 inv[16], m[16], det;
+    double inv[16], m[16], det;
     Mat4 Ret;
 
     for(int i = 0; i < 4; i++) for(int j = 0; j < 4; j++)
@@ -247,7 +247,7 @@ Mat4 Inverse(Mat4 In)
 
     det = 1.0 / det;
 
-    f64 invOut[16];
+    double invOut[16];
     for (i = 0; i < 16; i++)
         invOut[i] = inv[i] * det;
 
@@ -263,10 +263,10 @@ Mat4 Inverse(Mat4 In)
  */
 Quat operator*(const Quat &l, const Quat &r)
 {
-    const f32 w = (l.w * r.w) - (l.x * r.x) - (l.y * r.y) - (l.z * r.z);
-    const f32 x = (l.x * r.w) + (l.w * r.x) + (l.y * r.z) - (l.z * r.y);
-    const f32 y = (l.y * r.w) + (l.w * r.y) + (l.z * r.x) - (l.x * r.z);
-    const f32 z = (l.z * r.w) + (l.w * r.z) + (l.x * r.y) - (l.y * r.x);
+    const float w = (l.w * r.w) - (l.x * r.x) - (l.y * r.y) - (l.z * r.z);
+    const float x = (l.x * r.w) + (l.w * r.x) + (l.y * r.z) - (l.z * r.y);
+    const float y = (l.y * r.w) + (l.w * r.y) + (l.z * r.x) - (l.x * r.z);
+    const float z = (l.z * r.w) + (l.w * r.z) + (l.x * r.y) - (l.y * r.x);
 
     Quat ret(x, y, z, w);
 
@@ -290,13 +290,13 @@ Quat operator*(const Quat& q, Vec3 &v)
  */
 void Vec3::Rotate(float Angle, const Vec3 &Axe)
 {
-    const f32 SinHalfAngle = sinf(ToRadian(Angle/2));
-    const f32 CosHalfAngle = cosf(ToRadian(Angle/2));
+    const float SinHalfAngle = sinf(ToRadian(Angle/2));
+    const float CosHalfAngle = cosf(ToRadian(Angle/2));
 
-    const f32 Rx = Axe.x * SinHalfAngle;
-    const f32 Ry = Axe.y * SinHalfAngle;
-    const f32 Rz = Axe.z * SinHalfAngle;
-    const f32 Rw = CosHalfAngle;
+    const float Rx = Axe.x * SinHalfAngle;
+    const float Ry = Axe.y * SinHalfAngle;
+    const float Rz = Axe.z * SinHalfAngle;
+    const float Rw = CosHalfAngle;
     Quat RotationQ(Rx, Ry, Rz, Rw);
 
     Quat ConjugateQ = RotationQ.Conjugate();
@@ -322,12 +322,12 @@ Vec3 Vec3::Multiply(Mat4 M)
  * Useful
  */
 
-f32 ToDegree(f32 Rad)
+float ToDegree(float Rad)
 {
     return Rad * (180/PI);
 }
 
-f32 ToRadian(f32 Angle)
+float ToRadian(float Angle)
 {
     return Angle * (PI/180);
 }

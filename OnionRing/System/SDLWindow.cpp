@@ -15,9 +15,6 @@ bool SDLWindow::Create() {
     else
         m_Window = SDL_CreateWindow(m_Initializer.Title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_Initializer.Width, m_Initializer.Height, 0);
 
-    m_Renderer = SDL_CreateRenderer(m_Window, -1, SDL_RENDERER_SOFTWARE);
-    m_Texture = SDL_CreateTexture(m_Renderer, SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_STREAMING, m_Initializer.Width, m_Initializer.Height);
-
     if(m_Window == NULL)
     {
         printf("Could not create SDL window: %s\n", SDL_GetError());
@@ -27,8 +24,6 @@ bool SDLWindow::Create() {
 
 void SDLWindow::Destroy() {
     SDL_DestroyWindow(m_Window);
-    SDL_DestroyRenderer(m_Renderer);
-    SDL_DestroyTexture(m_Texture);
 }
 
 Vec2 SDLWindow::GetWindowSize() {

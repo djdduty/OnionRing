@@ -51,6 +51,11 @@ public:
         return* this;
     }
 
+    float Dot(Vec3& Other)
+    {
+        return x * Other.x + y * Other.y + z * Other.z;
+    }
+
     void Rotate(float Angle, const Vec3 &Axe);
     Vec3 Multiply(Mat4 M);
 };
@@ -78,6 +83,15 @@ inline Vec3 operator*(const Vec3& l, float f)
     Vec3 Ret(l.x * f,
              l.y * f,
              l.z * f);
+
+    return Ret;
+}
+
+inline Vec3 operator*(const Vec3& l, const Vec3& o)
+{
+    Vec3 Ret(l.x * o.x,
+             l.y * o.y,
+             l.z * o.z);
 
     return Ret;
 }
