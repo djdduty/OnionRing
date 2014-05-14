@@ -24,12 +24,12 @@ struct Ray
 class Sphere
 {
 public:
-    Vec3 center;                         /// position of the sphere
-    float radius, radius2;                      /// sphere radius and radius^2
-    Vec3 surfaceColor, emissionColor;    /// surface color and emission (light)
-    float transparency, reflection;             /// surface transparency and reflectivity
-    Sphere(const Vec3 &c, const float &r, const Vec3 &sc,
-        const float &refl = 0, const float &transp = 0, const Vec3 &ec = 0) :
+    Vec3 center;
+    float radius, radius2;
+    Vec3 surfaceColor;
+    Vec3 emissionColor;
+    float transparency, reflection;
+    Sphere(const Vec3 &c, const float &r, const Vec3 &sc, const float &refl = 0, const float &transp = 0, const Vec3 &ec = 0) :
         center(c), radius(r), radius2(r * r), surfaceColor(sc), emissionColor(ec),
         transparency(transp), reflection(refl)
     {}

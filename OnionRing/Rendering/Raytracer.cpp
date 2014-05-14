@@ -20,16 +20,78 @@ Vec3 TraceRay(Vec3 rayorig, Vec3 raydir, std::vector<Sphere*> &spheres, int dept
             }
         }
     }
-    if (!sphere) return Vec3(0,0,0);//No need to go anymore
+    if (!sphere) return Vec3(0);//No need to go anymore
+    if(depth < 0) return sphere->surfaceColor;
 
-    Vec3 surfaceColor = sphere->surfaceColor;
+    Vec3 surfaceColor = 0;
 
-    //TODO: all the fancy shit!
+    Vec3 phit = rayorig + raydir * tnear;
+    Vec3 nhit = phit - sphere->center;
+    nhit.Normalize();
+
+    float bias = 1e-4;
+    bool inside = false;
+    if(raydir.Dot(nhit) > 0) nhit *= -1, inside = true;
+
+    if((sphere->transparency + 0 || sphere->reflection > 0) && depth < 2)
+    {
+        float facingratio = (raydir*-1).Dot(nhit);
+        float fresneleffect = mixStuff(pow(1-facingratio, 3), 1, 0.1);
+        Vec3 refldir = raydir - nhit * 2 * raydir.Dot(nhit);
+        refldir.Normalize();
+        Vec3 reflection = TraceRay(phit+nhit*bias, refldir, spheres, depth+1);
+        float param1 = (1.0 - sphere->reflection);
+        float param2 = sphere->reflection;
+        surfaceColor.x = (param1 * surfaceColor.x + param2 * reflection.x);
+        surfaceColor.y = (param1 * surfaceColor.y + param2 * reflection.y);
+        surfaceColor.z = (param1 * surfaceColor.z + param2 * reflection.z);
+    }
+
+    //TODO: lighting
+    for(int i = 0; i < spheres.size(); i++)
+    {
+        if(spheres[i]->emissionColor.x > 0 || spheres[i]->emissionColor.y > 0 || spheres[i]->emissionColor.z > 0)
+        {
+            //is a light!
+            Sphere* light = spheres[i];
+            bool blocked = false;
+            Vec3 LightDir = light->center - phit;
+            LightDir.Normalize();
+            float DiffuseFactor = nhit.Dot(LightDir);
+            Vec3 DiffuseColor = Vec3();
+            Vec3 SpecularColor = Vec3();
+            Vec3 AmbientColor = Vec3(sphere->surfaceColor * 0.2);
+
+            for(int n = 0; n < spheres.size(); n++)
+            {
+                if(i != n)
+                {
+                    float t0, t1;
+                    if(spheres[n]->intersect(phit+nhit*bias, LightDir, &t0, &t1))
+                    {
+                        blocked = true;
+                    }
+                }
+            }
+
+            if(!blocked)
+            {
+                if(DiffuseFactor > 0)
+                {
+                    DiffuseColor = light->emissionColor.Normalize() * (DiffuseFactor*1.2);
+                    surfaceColor += sphere->surfaceColor * DiffuseColor + SpecularColor + AmbientColor;
+                }
+                else
+                {
+                    surfaceColor += AmbientColor;
+                }
+            }
+            else
+                surfaceColor += AmbientColor;
+        }
+    }
+    //
 
     return surfaceColor + sphere->emissionColor;
-
-    Vec3 phit = rayorig + raydir * tnear; // point of intersection
-    Vec3 nhit = phit - sphere->center; // normal at the intersection point
-    nhit.Normalize(); // normalize normal direction}
 }
 }

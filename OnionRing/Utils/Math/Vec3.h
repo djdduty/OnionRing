@@ -40,6 +40,10 @@ public:
         return x * x + y * y + z * z;
     }
 
+    float Length() {
+        return sqrt(LengthSquared());
+    }
+
     Vec3& Normalize()
     {
         const float Length = sqrtf(x * x + y * y + z * z);
