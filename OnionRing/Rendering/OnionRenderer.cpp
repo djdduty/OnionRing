@@ -2,7 +2,7 @@
 #include <System/Environment.h>
 #include <string.h>
 
-#define TexMultiplier 1
+#define TexMultiplier 0.32
 
 namespace OnionRing {
 OnionRenderer::OnionRenderer() {}
@@ -19,23 +19,28 @@ void OnionRenderer::Init() {
     m_Renderer = SDL_CreateRenderer(GameWindow->GetWindow(), -1, SDL_RENDERER_SOFTWARE);
     m_Texture = SDL_CreateTexture(m_Renderer, SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_STREAMING, GameWindow->GetWidth()*TexMultiplier, GameWindow->GetHeight()*TexMultiplier);
 
-    spheres.push_back(new Sphere(Vec3(0, -10004, -20),  10000,  Vec3(0.35, 0.15, 0.5),  0.10, 0.0));
-    spheres.push_back(new Sphere(Vec3(0, 0, -20),       4,      Vec3(1.00, 0.32, 0.36), 0.25, 0.0));
-    spheres.push_back(new Sphere(Vec3(-7, -2, -18),     2,      Vec3(0.90, 0.80, 0.00), 0.15, 0.0));
-    spheres.push_back(new Sphere(Vec3(7, 0, -25),       3,      Vec3(0.65, 0.77, 0.97), 0.25, 0.0));
-    spheres.push_back(new Sphere(Vec3(8, -1, -12),      3,      Vec3(0.90, 0.85, 0.75), 0.05, 0.0));
+    spheres.push_back(new Sphere(Vec3(0, -10004, -20),  10000,  Vec3(0.35, 0.15, 0.50), 0.10, 0.0));
+    spheres.push_back(new Sphere(Vec3(-20, 12, -30),    16,     Vec3(0.80, 0.80, 0.80), 0.75, 0.0));
+    spheres.push_back(new Sphere(Vec3(0, 2, -20),       6,      Vec3(1.00, 0.32, 0.36), 0.25, 0.0));
+    spheres.push_back(new Sphere(Vec3(-7, -2, -18),     2,      Vec3(0.20, 1.00, 0.20), 0.25, 0.0));
+    spheres.push_back(new Sphere(Vec3(7, -1, -15),      3,      Vec3(0.65, 0.77, 0.97), 0.25, 0.0));
+    spheres.push_back(new Sphere(Vec3(10, -1, -9),      3,      Vec3(0.90, 0.85, 0.75), 0.15, 0.0));
+    spheres.push_back(new Sphere(Vec3(-10,-1, -12),     3,      Vec3(0.35, 0.35, 0.75), 0.15, 0.0));
 
-    spheres.push_back(new Sphere(Vec3(0, 15, -8), 3, Vec3(0.65, 0.77, 0.97), 0.25, 0.0, Vec3(1)));
-    //spheres.push_back(new Sphere(Vec3(-15, 15, -15), 3, Vec3(0.65, 0.77, 0.97), 0.25, 0.0, Vec3(1)));
+    spheres.push_back(new Sphere(Vec3(-10, 20, -10), 1, Vec3(0.65, 0.77, 0.97), 0.25, 0.0, Vec3(1)));
+    spheres.push_back(new Sphere(Vec3(10, 20, -10), 1, Vec3(0.65, 0.77, 0.97), 0.25, 0.0, Vec3(1)));
+
+//    spheres.push_back(new Sphere(Vec3(-5, 10, -20), 1, Vec3(0.65, 0.77, 0.97), 0.25, 0.0, Vec3(1)));
+//    spheres.push_back(new Sphere(Vec3(-2, 10, -20), 1, Vec3(0.65, 0.77, 0.97), 0.25, 0.0, Vec3(1)));
+//    spheres.push_back(new Sphere(Vec3(2, 10, -20), 1, Vec3(0.65, 0.77, 0.97), 0.25, 0.0, Vec3(1)));
+//    spheres.push_back(new Sphere(Vec3(5, 10, -20), 1, Vec3(0.65, 0.77, 0.97), 0.25, 0.0, Vec3(1)));
 }
 
 void OnionRenderer::Render() {
-    //memset(m_Buffer.addr, 0x0, m_Buffer.w * m_Buffer.h * m_Buffer.bpp);
-
     unsigned width = WindowWidth*TexMultiplier, height = WindowHeight*TexMultiplier;
     float invWidth = 1 / float(width);
     float invHeight = 1 / float(height);
-    float fov = 60, aspectratio = width / float(height);
+    float fov = 90, aspectratio = width / float(height);
     float angle = tan(M_PI * 0.5 * fov / float(180));
     // Trace rays
     Vec3 pixel;

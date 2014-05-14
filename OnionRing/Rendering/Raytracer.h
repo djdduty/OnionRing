@@ -9,6 +9,7 @@
 #include <iostream>
 #include <cassert>
 #include <Utils/Math.h>
+#include <algorithm>
 
 namespace OnionRing {
 struct Ray
@@ -50,6 +51,15 @@ public:
         return true;
     }
 };
+
+struct LightSortObject
+{
+public:
+    int i;
+    float d;
+};
+
+bool SortLight(const LightSortObject &l1, const LightSortObject &l2);
 
 float mixStuff(const float &a, const float &b, const float &mx);
 Vec3 TraceRay(Vec3 rayorig, Vec3 raydir, std::vector<Sphere*> &spheres, int depth);
