@@ -94,7 +94,7 @@ Vec3 TraceRay(Vec3 rayorig, Vec3 raydir, std::vector<Sphere*> &spheres, int dept
     bool inside = false;
     if(raydir.Dot(nhit) > 0) nhit *= -1, inside = true;
 
-    if((sphere->transparency + 0 || sphere->reflection > 0) && depth < 5)
+    if((sphere->transparency + 0 || sphere->reflection > 0) && depth < 2)
     {
         float facingratio = (raydir*-1).Dot(nhit);
         float fresneleffect = mixStuff(pow(1-facingratio, 3), 1, 0.1);

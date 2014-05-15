@@ -29,18 +29,13 @@ void OnionRenderer::Init() {
 
     spheres.push_back(new Sphere(Vec3(-10, 20, -10), 1, Vec3(0.65, 0.77, 0.97), 0.25, 0.0, Vec3(1)));
     spheres.push_back(new Sphere(Vec3(10, 20, -10), 1, Vec3(0.65, 0.77, 0.97), 0.25, 0.0, Vec3(1)));
-
-//    spheres.push_back(new Sphere(Vec3(-5, 10, -20), 1, Vec3(0.65, 0.77, 0.97), 0.25, 0.0, Vec3(1)));
-//    spheres.push_back(new Sphere(Vec3(-2, 10, -20), 1, Vec3(0.65, 0.77, 0.97), 0.25, 0.0, Vec3(1)));
-//    spheres.push_back(new Sphere(Vec3(2, 10, -20), 1, Vec3(0.65, 0.77, 0.97), 0.25, 0.0, Vec3(1)));
-//    spheres.push_back(new Sphere(Vec3(5, 10, -20), 1, Vec3(0.65, 0.77, 0.97), 0.25, 0.0, Vec3(1)));
 }
 
 void OnionRenderer::Render() {
     unsigned width = WindowWidth*TexMultiplier, height = WindowHeight*TexMultiplier;
     float invWidth = 1 / float(width);
     float invHeight = 1 / float(height);
-    float fov = 90, aspectratio = width / float(height);
+    float fov = 120, aspectratio = width / float(height);
     float angle = tan(M_PI * 0.5 * fov / float(180));
     // Trace rays
     Vec3 pixel;
